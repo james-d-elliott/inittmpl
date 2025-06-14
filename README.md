@@ -12,6 +12,53 @@ environment variables for your desired output.
 | `docker.io` | `docker.io/jamesdelliott/inittmpl` |
 |  `ghcr.io`  |                N/A                 |
 
+### Kubernetes Init Containers
+
+The following is an initContainers example for Kubernetes assuming a volume is mounted at /config:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example
+spec:
+  containers:
+    - name: example
+      volumeMounts:
+        - mountPath: "/config"
+          name: config-vol
+  initContainers:
+    - name: inittmpl
+      image: jamesdelliott/inittmpl:latest
+      args: ['/config/config.yaml', '-xec']
+      volumeMounts:
+        - mountPath: "/config"
+          name: config-vol
+      env:
+        - name: 'INITTMPL__example_integer'
+          value: 'int::123'
+        - name: 'INITTMPL__example_string'
+          value: 'string::123'
+        - name: 'INITTMPL__example_boolean'
+          value: 'bool::true'
+        - name: 'INITTMPL__example__multilevel_string'
+          value: 'string::true'
+  volumes:
+    - name: config-vol
+      persistentVolumeClaim:
+        claimName: config-pvc
+```
+
+Output:
+
+```yaml
+example:
+  multilevel_string: 'true'
+example_boolean: true
+example_integer: 123
+example_string: '123'
+```
+
 ## Installation
 
 `go install github.com/james-d-elliott/inittmpl@de1deee3408a9de4b92968967184df37da17c46d`
