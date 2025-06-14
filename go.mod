@@ -1,4 +1,4 @@
-module inittmpl
+module github.com/james-d-elliott/inittmpl
 
 go 1.24
 
