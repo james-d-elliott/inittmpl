@@ -2,6 +2,11 @@
 
 Stupid simple init templating tool.
 
+## Limitations
+
+Has no support for lists, and while support for lists of primitive types is fairly possible support for lists of
+objects is very unlikely.
+
 ## Docker
 
 Use any of the images detailed below. The command used is the binary, just add the arguments and
