@@ -2,6 +2,10 @@
 
 Stupid simple init templating tool.
 
+## Installation
+
+`go install github.com/james-d-elliott/inittmpl@668f99e7574c84f4525a908354b2dc7e9acc1f3c`
+
 ## Behaviour
 
 Because environment variables have certain characteristics and there may be some nuanced use cases some behaviour flags 
