@@ -4,7 +4,7 @@ Stupid simple init templating tool.
 
 ## Installation
 
-`go install github.com/james-d-elliott/inittmpl@668f99e7574c84f4525a908354b2dc7e9acc1f3c`
+`go install github.com/james-d-elliott/inittmpl@447fc491b612393a3595e072cc41fd233c896ef4`
 
 ## Behaviour
 
