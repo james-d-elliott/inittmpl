@@ -2,6 +2,11 @@
 
 Stupid simple init templating tool.
 
+## Docker
+
+Use the `docker.io/jamesdelliott/inittmpl:latest` image. The command used is the binary, just add the arguments and
+environment variables for your desired output.
+
 ## Installation
 
 `go install github.com/james-d-elliott/inittmpl@de1deee3408a9de4b92968967184df37da17c46d`
