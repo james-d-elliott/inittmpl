@@ -7,10 +7,10 @@ Stupid simple init templating tool.
 Use any of the images detailed below. The command used is the binary, just add the arguments and
 environment variables for your desired output.
 
-| Repository |               Image                |
-|:----------:|:----------------------------------:|
-| `docker.io | `docker.io/jamesdelliott/inittmpl` |
-| `ghcr.io`  |                N/A                 |
+| Repository  |               Image                |
+|:-----------:|:----------------------------------:|
+| `docker.io` | `docker.io/jamesdelliott/inittmpl` |
+|  `ghcr.io`  |                N/A                 |
 
 ## Installation
 
