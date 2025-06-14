@@ -4,8 +4,13 @@ Stupid simple init templating tool.
 
 ## Docker
 
-Use the `docker.io/jamesdelliott/inittmpl:latest` image. The command used is the binary, just add the arguments and
+Use any of the images detailed below. The command used is the binary, just add the arguments and
 environment variables for your desired output.
+
+| Repository |               Image                |
+|:----------:|:----------------------------------:|
+| `docker.io | `docker.io/jamesdelliott/inittmpl` |
+| `ghcr.io`  |                N/A                 |
 
 ## Installation
 
