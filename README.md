@@ -1,11 +1,11 @@
-# inittml
+# inittmpl
 
 Stupid simple init templating tool.
 
 ## Behaviour
 
 Because environment variables have certain characteristics and there may be some nuanced use cases some behaviour flags 
-and defaults are necessary.
+and defaults are necessary. See the full [usage documentation](USAGE.md) for usage information.
 
 ### Format
 
