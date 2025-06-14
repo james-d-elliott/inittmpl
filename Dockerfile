@@ -2,6 +2,7 @@ FROM golang:1.24.4-bookworm@sha256:97162678719a516c12d5fb4b08266ab04802358cff636
 
 COPY go.* .
 COPY *.go .
+COPY internal internal
 
 RUN go build .
 
