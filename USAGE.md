@@ -24,6 +24,9 @@ keys are usually expressed entirely lowercase we automatically perform lowercase
 correction. This behaviour can be turned off however all of your key names must
 match the target case after the prefix.
 
+Input files can be utilized to effectively modify existing configs however both
+the key order and the comments may be sacrificed. Alternatively you may just opt
+not to overwrite and use this solely for generating first time configs.
 
 ```
 inittmpl <file> [flags]
