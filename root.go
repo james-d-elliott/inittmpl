@@ -1,18 +1,17 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
-	"strconv"
 	"strings"
 
-	"github.com/goccy/go-yaml"
 	"github.com/knadh/koanf/providers/env"
+	"github.com/knadh/koanf/providers/file"
 	"github.com/knadh/koanf/v2"
-	"github.com/pelletier/go-toml"
 	"github.com/spf13/cobra"
+
+	"github.com/james-d-elliott/inittmpl/internal/parsers"
 )
 
 func newRootCommand() *cobra.Command {
@@ -20,7 +19,7 @@ func newRootCommand() *cobra.Command {
 		Use: "inittmpl <file>",
 
 		Short: "Generate a configuration file from environment variables",
-		Long:  `Generate a configuration file from environment variables.`,
+		Long:  rootLong,
 
 		RunE: root,
 		Args: cobra.ExactArgs(1),
@@ -32,6 +31,7 @@ func newRootCommand() *cobra.Command {
 	cmd.Flags().StringP("prefix", "p", "INITTMPL", "override the environment prefix")
 	cmd.Flags().StringP("delimiter", "d", "__", "override the environment delimiter")
 	cmd.Flags().BoolP("overwrite", "x", false, "overwrite existing file")
+	cmd.Flags().StringSliceP("files", "z", nil, "uses the specified files as additional input, if any of these are the same file as the output assumes overwrite")
 	cmd.Flags().BoolP("disable-lowercase", "e", false, "disable lowercase conversion of environment variables")
 	cmd.Flags().BoolP("disable-opportunistic", "c", false, "disable opportunistic type conversion of environment variables")
 
@@ -40,8 +40,10 @@ func newRootCommand() *cobra.Command {
 
 func root(cmd *cobra.Command, args []string) (err error) {
 	var (
-		outputpath, prefix, delimiter, format string
-		overwrite, lowercase, opportunistic   bool
+		outputpath                          string
+		inputpaths                          []string
+		prefix, delimiter, format           string
+		overwrite, lowercase, opportunistic bool
 	)
 
 	if prefix, err = cmd.Flags().GetString("prefix"); err != nil {
@@ -70,6 +72,29 @@ func root(cmd *cobra.Command, args []string) (err error) {
 
 	outputpath = args[0]
 
+	input := false
+
+	if input = cmd.Flags().Changed("files"); input {
+		if inputpaths, err = cmd.Flags().GetStringSlice("files"); err != nil {
+			return err
+		}
+
+		outputabs, _ := filepath.Abs(outputpath)
+
+		if !overwrite {
+			var inputabs string
+
+			for _, inputpath := range inputpaths {
+
+				if inputabs, err = filepath.Abs(inputpath); err == nil && inputabs == outputabs {
+					overwrite = true
+
+					break
+				}
+			}
+		}
+	}
+
 	if _, err = os.Stat(outputpath); err != nil {
 		if !os.IsNotExist(err) {
 			return err
@@ -79,30 +104,33 @@ func root(cmd *cobra.Command, args []string) (err error) {
 	}
 
 	if format == "" {
-		switch ext := filepath.Ext(outputpath); ext {
-		case ".yaml", ".yml":
-			format = "yaml"
-		case ".toml":
-			format = "toml"
-		case ".json":
-			format = "json"
-		default:
+		ext := filepath.Ext(outputpath)
+
+		format = extToFormat(ext, format)
+
+		if format == "" {
 			return fmt.Errorf("unknown output format for extension: %s", ext)
 		}
 	}
 
 	k := koanf.New(".")
 
+	if input {
+		for _, inputpath := range inputpaths {
+			ext := filepath.Ext(inputpath)
+
+			informat := extToFormat(ext, format)
+
+			if err = k.Load(file.Provider(inputpath), parsers.Parser(informat)); err != nil {
+				return fmt.Errorf("error loading input file '%s': %w", inputpath, err)
+			}
+		}
+	}
+
 	cb := envCallback(!lowercase, !opportunistic, prefix, delimiter)
 
 	if err = k.Load(env.ProviderWithValue(prefix, delimiter, cb), nil); err != nil {
 		return fmt.Errorf("error occurred loading environment: %w", err)
-	}
-
-	values := map[string]any{}
-
-	if err = k.Unmarshal("", &values); err != nil {
-		return err
 	}
 
 	var f *os.File
@@ -113,29 +141,14 @@ func root(cmd *cobra.Command, args []string) (err error) {
 
 	defer f.Close()
 
-	var encoder Encoder
+	var data []byte
 
-	switch format {
-	case "yaml":
-		encoder = yaml.NewEncoder(f, yaml.Indent(2), yaml.UseSingleQuote(true), yaml.OmitEmpty())
-	case "toml":
-		e := toml.NewEncoder(f)
-
-		e.Indentation("  ")
-
-		encoder = e
-	case "json":
-		e := json.NewEncoder(f)
-
-		e.SetIndent("", "  ")
-
-		encoder = e
-	default:
-		return fmt.Errorf("error occurred during encoding: unknown output format: %s", format)
+	if data, err = k.Marshal(parsers.Parser(format)); err != nil {
+		return fmt.Errorf("error occurred during file marshal: %w", err)
 	}
 
-	if err = encoder.Encode(values); err != nil {
-		return fmt.Errorf("error occurred during encoding: %w", err)
+	if _, err = f.Write(data); err != nil {
+		return fmt.Errorf("error occurred during file write: %w", err)
 	}
 
 	return nil
@@ -159,30 +172,6 @@ func envCallback(lowercase, opportunistic bool, prefix, delimiter string) func(i
 
 		return strings.ToLower(trimmed), value
 	}
-}
-
-func toValue(in string, opportunistic bool) (v any, err error) {
-	if strings.HasPrefix(in, "string::") {
-		return strings.TrimPrefix(in, "string::"), nil
-	} else if strings.HasPrefix(in, "int::") {
-		return strconv.ParseInt(strings.TrimPrefix(in, "int::"), 10, 64)
-	} else if strings.HasPrefix(in, "uint::") {
-		return strconv.ParseUint(strings.TrimPrefix(in, "uint::"), 10, 64)
-	} else if strings.HasPrefix(in, "bool::") {
-		return strconv.ParseBool(strings.TrimPrefix(in, "bool::"))
-	} else if strings.HasPrefix(in, "float::") {
-		return strconv.ParseFloat(strings.TrimPrefix(in, "float::"), 10)
-	}
-
-	if opportunistic {
-		if v, err = strconv.Atoi(in); err == nil {
-			return v, nil
-		} else if v, err = strconv.ParseBool(in); err == nil {
-			return v, nil
-		}
-	}
-
-	return in, nil
 }
 
 type Encoder interface {

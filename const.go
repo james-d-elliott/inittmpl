@@ -1,10 +1,7 @@
-## inittmpl
+package main
 
-Generate a configuration file from environment variables
-
-### Synopsis
-
-Generate a configuration file from environment variables.
+const (
+	rootLong = `Generate a configuration file from environment variables.
 
 Environment variables take the highest precedence overwriting any other input.
 
@@ -24,21 +21,8 @@ keys are usually expressed entirely lowercase we automatically perform lowercase
 correction. This behaviour can be turned off however all of your key names must
 match the target case after the prefix.
 
-
-```
-inittmpl <file> [flags]
-```
-
-### Options
-
-```
-  -d, --delimiter string        override the environment delimiter (default "__")
-  -e, --disable-lowercase       disable lowercase conversion of environment variables
-  -c, --disable-opportunistic   disable opportunistic type conversion of environment variables
-  -z, --files strings           uses the specified files as additional input, if any of these are the same file as the output assumes overwrite
-  -f, --format string           override the output format; yaml, toml, json
-  -h, --help                    help for inittmpl
-  -x, --overwrite               overwrite existing file
-  -p, --prefix string           override the environment prefix (default "INITTMPL")
-```
-
+Input files can be utilized to effectively modify existing configs however both
+the key order and the comments may be sacrificed. Alternatively you may just opt
+not to overwrite and use this solely for generating first time configs.
+`
+)
