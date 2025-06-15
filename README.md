@@ -78,7 +78,7 @@ example_string: '123'
 
 ## Installation
 
-`go install github.com/james-d-elliott/inittmpl@c575e5158abda7f9a192079245443861d84e70cd`
+`go install github.com/james-d-elliott/inittmpl@43c39c0ae0352e23a6273aa3959b85261e374255`
 
 ## Behaviour
 
