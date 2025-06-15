@@ -7,6 +7,23 @@ Stupid simple init templating tool.
 The only current way to define lists via environment variables is via the `json::` value prefix, and this is the only
 current way to define a list of any type. 
 
+## Installation
+
+Installing this tool is simple:
+
+```shell
+go install github.com/james-d-elliott/inittmpl@2cb3e92997477c991323365c7ab007b2b3dc7daf
+```
+
+## Building
+
+Building this tool is simple:
+
+```shell
+go mod download
+go build
+```
+
 ## Docker
 
 Use any of the images detailed below. The command used is the binary, just add the arguments and
@@ -16,10 +33,6 @@ environment variables for your desired output.
 |:-----------:|:----------------------------------:|
 | `docker.io` | `docker.io/jamesdelliott/inittmpl` |
 |  `ghcr.io`  |                N/A                 |
-
-## Installation
-
-`go install github.com/james-d-elliott/inittmpl@2cb3e92997477c991323365c7ab007b2b3dc7daf`
 
 ### Kubernetes Init Containers
 
