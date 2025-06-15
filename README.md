@@ -10,7 +10,13 @@ This tool doesn't think you're smart, it assumes you're a complete idiot.
 ## Limitations
 
 The only current way to define lists via environment variables is via the `json::` value prefix, and this is the only
-current way to define a list of any type. 
+current way to define a list of any type.
+
+Lets be honest, it'd be really cool and smart if I added some custom decoding magic that decodes a comma separated 
+environment variable value into a list of objects. But that sounds too smart, and then I'd have to explain it to you, 
+and you're not that smart; you're simple, stupid. That's why you're here.
+
+So I'm not going to do that. JSON is good enough.
 
 ## TODO
 
