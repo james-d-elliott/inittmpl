@@ -22,7 +22,7 @@ current way to define a list of any type.
 
 ## Installation
 
-Like everything else with this tool, installing is is simple, stupid:
+Like everything else with this tool, installing is simple, stupid:
 
 ```shell
 go install github.com/james-d-elliott/kissit@2cb3e92997477c991323365c7ab007b2b3dc7daf
