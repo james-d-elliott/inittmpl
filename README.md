@@ -22,7 +22,7 @@ current way to define a list of any type.
 
 ## Installation
 
-Installing this tool is simple:
+Like everything else with this tool, installing is simple:
 
 ```shell
 go install github.com/james-d-elliott/inittmpl@2cb3e92997477c991323365c7ab007b2b3dc7daf
@@ -30,7 +30,7 @@ go install github.com/james-d-elliott/inittmpl@2cb3e92997477c991323365c7ab007b2b
 
 ## Building
 
-Building this tool is simple:
+Like everything else with this tool, building is simple:
 
 ```shell
 git clone https://github.com/james-d-elliott/inittmpl.git
@@ -57,20 +57,20 @@ The following is an initContainers example for Kubernetes assuming a volume is m
 apiVersion: v1
 kind: Pod
 metadata:
-  name: example
+  name: 'example'
 spec:
   containers:
-    - name: example
+    - name: 'example'
       volumeMounts:
-        - mountPath: "/config"
-          name: config-vol
+        - mountPath: '/config'
+          name: 'config-vol'
   initContainers:
-    - name: inittmpl
-      image: jamesdelliott/inittmpl:latest
+    - name: 'inittmpl'
+      image: 'jamesdelliott/inittmpl:latest'
       args: ['/config/config.yaml', '-xec']
       volumeMounts:
-        - mountPath: "/config"
-          name: config-vol
+        - mountPath: '/config'
+          name: 'config-vol'
       env:
         - name: 'INITTMPL__example_integer'
           value: 'int::123'
@@ -85,9 +85,9 @@ spec:
         - name: 'INITTMPL__example__multilevel_object'
           value: 'json::{"abc":123,"xyz":456,"boolean":true,"string":"value"}'
   volumes:
-    - name: config-vol
+    - name: 'config-vol'
       persistentVolumeClaim:
-        claimName: config-pvc
+        claimName: 'config-pvc'
 ```
 
 Output:
