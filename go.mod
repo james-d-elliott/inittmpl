@@ -1,4 +1,4 @@
-module github.com/james-d-elliott/ssit
+module github.com/james-d-elliott/kissit
 
 go 1.24
 

@@ -33,11 +33,11 @@ Levels within the data structure are separated by default by a double underscore
 This allows easily defining multi-level datastructures without the need for
 complex decoding.`
 
-	rootExample = `  ssit file.yaml
-  ssit file -f yaml
-  ssit file.toml
-  ssit file.json
-  ssit file.yaml -z input1.yaml,input2.toml,input3.json
-  ssit file.yaml -z file.yaml,input2.toml,input3.json
-  ssit file.yaml -x`
+	rootExample = `  kissit file.yaml
+  kissit file -f yaml
+  kissit file.toml
+  kissit file.json
+  kissit file.yaml -z input1.yaml,input2.toml,input3.json
+  kissit file.yaml -z file.yaml,input2.toml,input3.json
+  kissit file.yaml -x`
 )

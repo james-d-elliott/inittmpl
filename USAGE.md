@@ -1,4 +1,4 @@
-## ssit
+## kissit
 
 Generate a configuration file from environment variables
 
@@ -37,19 +37,19 @@ This allows easily defining multi-level datastructures without the need for
 complex decoding.
 
 ```
-ssit <file> [flags]
+kissit <file> [flags]
 ```
 
 ### Examples
 
 ```
-  ssit file.yaml
-  ssit file -f yaml
-  ssit file.toml
-  ssit file.json
-  ssit file.yaml -z input1.yaml,input2.toml,input3.json
-  ssit file.yaml -z file.yaml,input2.toml,input3.json
-  ssit file.yaml -x
+  kissit file.yaml
+  kissit file -f yaml
+  kissit file.toml
+  kissit file.json
+  kissit file.yaml -z input1.yaml,input2.toml,input3.json
+  kissit file.yaml -z file.yaml,input2.toml,input3.json
+  kissit file.yaml -x
 ```
 
 ### Options
@@ -60,8 +60,8 @@ ssit <file> [flags]
   -c, --disable-opportunistic   disable opportunistic type conversion of environment variables
   -z, --files strings           uses the specified files as additional input, if any of these are the same file as the output assumes overwrite
   -f, --format string           override the output format; yaml, toml, json
-  -h, --help                    help for ssit
+  -h, --help                    help for kissit
   -x, --overwrite               overwrite existing file
-  -p, --prefix string           override the environment prefix (default "ssit")
+  -p, --prefix string           override the environment prefix (default "kissit")
 ```
 

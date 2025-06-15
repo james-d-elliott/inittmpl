@@ -15,7 +15,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 COPY LICENSE .
-COPY --from=builder-backend /go/ssit .
+COPY --from=builder-backend /go/kissit .
 ENV PATH="$PATH:/app"
 
-CMD ["ssit"]
+CMD ["kissit"]

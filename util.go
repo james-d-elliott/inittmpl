@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/james-d-elliott/ssit/internal/consts"
+	"github.com/james-d-elliott/kissit/internal/consts"
 )
 
 func toValue(in string, opportunistic bool) (v any, err error) {
