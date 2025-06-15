@@ -22,7 +22,7 @@ current way to define a list of any type.
 
 ## Installation
 
-Like everything else with this tool, installing is simple:
+Like everything else with this tool, installing is stupid simple:
 
 ```shell
 go install github.com/james-d-elliott/inittmpl@2cb3e92997477c991323365c7ab007b2b3dc7daf
@@ -30,7 +30,7 @@ go install github.com/james-d-elliott/inittmpl@2cb3e92997477c991323365c7ab007b2b
 
 ## Building
 
-Like everything else with this tool, building is simple:
+Like everything else with this tool, building is stupid simple:
 
 ```shell
 git clone https://github.com/james-d-elliott/inittmpl.git
