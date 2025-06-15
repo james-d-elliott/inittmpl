@@ -17,6 +17,10 @@ environment variables for your desired output.
 | `docker.io` | `docker.io/jamesdelliott/inittmpl` |
 |  `ghcr.io`  |                N/A                 |
 
+## Installation
+
+`go install github.com/james-d-elliott/inittmpl@2cb3e92997477c991323365c7ab007b2b3dc7daf`
+
 ### Kubernetes Init Containers
 
 The following is an initContainers example for Kubernetes assuming a volume is mounted at /config:
@@ -75,10 +79,6 @@ example_boolean: true
 example_integer: 123
 example_string: '123'
 ```
-
-## Installation
-
-`go install github.com/james-d-elliott/inittmpl@43c39c0ae0352e23a6273aa3959b85261e374255`
 
 ## Behaviour
 
