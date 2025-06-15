@@ -146,8 +146,8 @@ By default this tool opportunistically performs type conversions. You can disabl
 You can define explicit type conversions regardless of this setting using the special prefixes `string::`, `int::`, 
 `bool::`, and `float::`. Examples of various behaviour are illustrated in the table below.
 
-|  Type  | Opportunistic |                    Example                    |     Output (YAML)     |
-|:------:|:-------------:|:---------------------------------------------:|:---------------------:|
+|  Type  | Opportunistic |                   Example                   |     Output (YAML)     |
+|:------:|:-------------:|:-------------------------------------------:|:---------------------:|
 | string |      Yes      |        `KISSIT__EXAMPLE=string::123`        |        `'123'`        |
 | string |      No       |            `KISSIT__EXAMPLE=123`            |        `'123'`        |
 | string |      No       |             `KISSIT__EXAMPLE=1`             |         `'1'`         |
