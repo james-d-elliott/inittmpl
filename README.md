@@ -7,6 +7,19 @@ Stupid simple init templating tool.
 The only current way to define lists via environment variables is via the `json::` value prefix, and this is the only
 current way to define a list of any type. 
 
+## TODO
+
+- dependency management:
+  - [ ] add renovate
+  - [ ] add dependabot
+- continuous integration:
+  - [ ] add tags / releases
+  - [ ] add tests and test steps
+  - [ ] add build steps
+  - [ ] add deploy steps
+- [ ] add ghcr.io container 
+- [ ] add step security
+
 ## Installation
 
 Installing this tool is simple:
@@ -20,6 +33,8 @@ go install github.com/james-d-elliott/inittmpl@2cb3e92997477c991323365c7ab007b2b
 Building this tool is simple:
 
 ```shell
+git clone https://github.com/james-d-elliott/inittmpl.git
+cd inittmpl
 go mod download
 go build
 ```
