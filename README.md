@@ -84,13 +84,15 @@ spec:
   initContainers:
     - name: 'kissit'
       image: 'jamesdelliott/kissit:latest'
-      args: ['/config/config.yaml', '-xec']
+      args: ['/config/config.yaml', '-x']
       volumeMounts:
         - mountPath: '/config'
           name: 'config-vol'
       env:
         - name: 'KISSIT__example_stupid_string'
           value: 'a stupid string value'
+        - name: 'KISSIT__example_stupid_string_WITHRAnDoMStupidCase'
+          value: 'now it somehow is lowercase'
         - name: 'KISSIT__example_stupid_boolean'
           value: 'true'
         - name: 'KISSIT__example_integer'
@@ -127,8 +129,9 @@ example:
 example_boolean: true
 example_integer: 123
 example_string: '123'
-example_stupid_boolean: 'true'
+example_stupid_boolean: true
 example_stupid_string: a stupid string value
+example_stupid_string_withrandomstupidcase: now it somehow is lowercase
 ```
 
 ## Behaviour
