@@ -5,7 +5,9 @@ Keep It Simple Stupid; Init Templating.
 Why learn a complex templating language when you can just accidentally get the output you basically want? Just bang
 some rocks together and see what happens.
 
-This tool doesn't think you're smart, it assumes you're a complete idiot.
+This tool doesn't think you're smart, it assumes you're completely stupid. It does this via KISSML otherwise known as
+Keep It Simple Stupid Markup Language, which is just some loosely organized environment variables and potentially random
+input files you have laying around from the other day.
 
 ## Limitations
 
@@ -87,6 +89,10 @@ spec:
         - mountPath: '/config'
           name: 'config-vol'
       env:
+        - name: 'KISSIT__example_stupid_string'
+          value: 'a stupid string value'
+        - name: 'KISSIT__example_stupid_boolean'
+          value: 'true'
         - name: 'KISSIT__example_integer'
           value: 'int::123'
         - name: 'KISSIT__example_string'
@@ -121,6 +127,8 @@ example:
 example_boolean: true
 example_integer: 123
 example_string: '123'
+example_stupid_boolean: 'true'
+example_stupid_string: a stupid string value
 ```
 
 ## Behaviour
