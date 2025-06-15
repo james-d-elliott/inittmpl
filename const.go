@@ -11,7 +11,11 @@ to instruct the overwriting should take place.
 
 Some types automatically and opportunistically are cast before marshalling the
 output file; however you can specify the type in the environment variables using 
-the string::, int::, uint::, bool::, and float:: prefixes before the value.
+the 'string::',' int::', 'uint::', 'bool::', and 'float::' prefixes before the value.
+
+In addition to the standard types a 'json::' prefix treats the following text as
+JSON and performs a json unmarshal step allowing complex types including lists
+of objects. 
 
 The decoder and encoder formats are automatically detected via the file extension
 though you can specify the format to use.
@@ -24,5 +28,9 @@ match the target case after the prefix.
 Input files can be utilized to effectively modify existing configs however both
 the key order and the comments may be sacrificed. Alternatively you may just opt
 not to overwrite and use this solely for generating first time configs.
+
+Levels within the data structure are separated by default by a double underscore.
+This allows easily defining multi-level datastructures without the need for
+complex decoding.
 `
 )

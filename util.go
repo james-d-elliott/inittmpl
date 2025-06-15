@@ -2,13 +2,8 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
-	"io"
 	"strconv"
 	"strings"
-
-	"github.com/goccy/go-yaml"
-	"github.com/pelletier/go-toml"
 
 	"github.com/james-d-elliott/inittmpl/internal/consts"
 )
@@ -24,6 +19,20 @@ func toValue(in string, opportunistic bool) (v any, err error) {
 		return strconv.ParseBool(strings.TrimPrefix(in, "bool::"))
 	} else if strings.HasPrefix(in, "float::") {
 		return strconv.ParseFloat(strings.TrimPrefix(in, "float::"), 10)
+	} else if strings.HasPrefix(in, "json::") {
+		raw := strings.TrimPrefix(in, "json::")
+
+		if strings.HasPrefix("[", raw) {
+			v = []any{}
+		} else {
+			v = map[string]any{}
+		}
+
+		if err = json.Unmarshal([]byte(strings.TrimPrefix(in, "json::")), &v); err != nil {
+			return nil, err
+		}
+
+		return v, nil
 	}
 
 	if opportunistic {
@@ -35,32 +44,6 @@ func toValue(in string, opportunistic bool) (v any, err error) {
 	}
 
 	return in, nil
-}
-
-func getEncoder(format string) (f func(wr io.Writer) Encoder, err error) {
-	switch format {
-	case consts.FormatYAML:
-		return func(wr io.Writer) Encoder {
-			return yaml.NewEncoder(wr, yaml.Indent(2), yaml.UseSingleQuote(true), yaml.OmitEmpty())
-		}, nil
-	case consts.FormatTOML:
-		return func(wr io.Writer) Encoder {
-			e := toml.NewEncoder(wr)
-			e.Indentation("  ")
-
-			return e
-		}, nil
-	case consts.FormatJSON:
-		return func(wr io.Writer) Encoder {
-			encoder := json.NewEncoder(wr)
-
-			encoder.SetIndent("", "  ")
-
-			return encoder
-		}, nil
-	default:
-		return nil, fmt.Errorf("error occurred during encoding: unknown output format: %s", format)
-	}
 }
 
 func extToFormat(ext, fallback string) string {

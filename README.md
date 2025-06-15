@@ -4,8 +4,8 @@ Stupid simple init templating tool.
 
 ## Limitations
 
-Has no support for lists, and while support for lists of primitive types is fairly possible support for lists of
-objects is very unlikely.
+The only current way to define lists via environment variables is via the `json::` value prefix, and this is the only
+current way to define a list of any type. 
 
 ## Docker
 
@@ -48,6 +48,10 @@ spec:
           value: 'bool::true'
         - name: 'INITTMPL__example__multilevel_string'
           value: 'string::true'
+        - name: 'INITTMPL__example__multilevel_list'
+          value: 'json::["abc","123"]'
+        - name: 'INITTMPL__example__multilevel_object'
+          value: 'json::{"abc":123,"xyz":456,"boolean":true,"string":"value"}'
   volumes:
     - name: config-vol
       persistentVolumeClaim:
@@ -58,6 +62,14 @@ Output:
 
 ```yaml
 example:
+  multilevel_list:
+    - abc
+    - '123'
+  multilevel_object:
+    abc: 123.0
+    boolean: true
+    string: value
+    xyz: 456.0
   multilevel_string: 'true'
 example_boolean: true
 example_integer: 123
@@ -106,15 +118,17 @@ By default this tool opportunistically performs type conversions. You can disabl
 You can define explicit type conversions regardless of this setting using the special prefixes `string::`, `int::`, 
 `bool::`, and `float::`. Examples of various behaviour are illustrated in the table below.
 
-|  Type  | Opportunistic |             Example             | Output (YAML) |
-|:------:|:-------------:|:-------------------------------:|:-------------:|
-| string |      Yes      | `INITTMPL__EXAMPLE=string::123` |    `'123'`    |
-| string |      No       |     `INITTMPL__EXAMPLE=123`     |    `'123'`    |
-| string |      No       |      `INITTMPL__EXAMPLE=1`      |     `'1'`     |
-| string |      No       |    `INITTMPL__EXAMPLE=true`     |   `'true'`    |
-|  int   |      Yes      |  `INITTMPL__EXAMPLE=int::123`   |     `123`     |
-|  int   |      Yes      |     `INITTMPL__EXAMPLE=123`     |     `123`     |
-|  bool  |      Yes      |   `INITTMPL__EXAMPLE=bool::1`   |    `true`     |
-|  bool  |      Yes      | `INITTMPL__EXAMPLE=bool::false` |    `false`    |
-|  bool  |      Yes      |    `INITTMPL__EXAMPLE=false`    |    `false`    |
-| float  |      Yes      | `INITTMPL__EXAMPLE=float::123`  |    `123.0`    |
+|  Type  | Opportunistic |                    Example                    |     Output (YAML)     |
+|:------:|:-------------:|:---------------------------------------------:|:---------------------:|
+| string |      Yes      |        `INITTMPL__EXAMPLE=string::123`        |        `'123'`        |
+| string |      No       |            `INITTMPL__EXAMPLE=123`            |        `'123'`        |
+| string |      No       |             `INITTMPL__EXAMPLE=1`             |         `'1'`         |
+| string |      No       |           `INITTMPL__EXAMPLE=true`            |       `'true'`        |
+|  int   |      Yes      |         `INITTMPL__EXAMPLE=int::123`          |         `123`         |
+|  int   |      Yes      |            `INITTMPL__EXAMPLE=123`            |         `123`         |
+|  bool  |      Yes      |          `INITTMPL__EXAMPLE=bool::1`          |        `true`         |
+|  bool  |      Yes      |        `INITTMPL__EXAMPLE=bool::false`        |        `false`        |
+|  bool  |      Yes      |           `INITTMPL__EXAMPLE=false`           |        `false`        |
+| float  |      Yes      |        `INITTMPL__EXAMPLE=float::123`         |        `123.0`        |
+|  json  |      No       |        `INITTMPL__EXAMPLE=json::[123]`        |       `[123.0]`       |
+|  json  |      No       | `INITTMPL__EXAMPLE=json::["123","456","abc"]` | `['123','456','abc']` |
