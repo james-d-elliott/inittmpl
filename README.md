@@ -2,6 +2,11 @@
 
 Keep It Simple Stupid; Init Templating.
 
+Why learn a complex templating language when you can just accidentally get the output you basically want? Just bang
+some rocks together and see what happens.
+
+This tool doesn't think you're smart, it assumes you're a complete idiot.
+
 ## Limitations
 
 The only current way to define lists via environment variables is via the `json::` value prefix, and this is the only
@@ -41,6 +46,8 @@ go build
 
 ## Docker
 
+Like everything else with this tool, using it in docker is simple, stupid. It's just a regular container, duh.
+
 Use any of the images detailed below. The command used is the binary, just add the arguments and
 environment variables for your desired output.
 
@@ -50,6 +57,8 @@ environment variables for your desired output.
 |  `ghcr.io`  |               N/A                |
 
 ### Kubernetes Init Containers
+
+Like everything else with this tool, using it as a Kubernetes init container is simple, stupid. 
 
 The following is an initContainers example for Kubernetes assuming a volume is mounted at /config:
 
@@ -115,8 +124,11 @@ and defaults are necessary. See the full [usage documentation](USAGE.md) for usa
 
 ### Format
 
-This tool automatically determines the appropriate output format using the file path. This however doesn't fit all use
-cases and this can be changed using the flag `--format` or `-f` for short.
+There's no magic here. Like everything else with this tool, the input and output formats are simple, stupid.
+
+This tool automatically determines the appropriate input and output format using the file path. This however doesn't fit
+all use cases and this can be changed using the flag `--format` or `-f` for short. This is just in case someone was
+stupid simple and used the wrong extension for a file type.
 
 Formats:
 
