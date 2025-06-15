@@ -44,10 +44,10 @@ go build
 Use any of the images detailed below. The command used is the binary, just add the arguments and
 environment variables for your desired output.
 
-| Repository  |               Image                |
-|:-----------:|:----------------------------------:|
+| Repository  |              Image               |
+|:-----------:|:--------------------------------:|
 | `docker.io` | `docker.io/jamesdelliott/kissit` |
-|  `ghcr.io`  |                N/A                 |
+|  `ghcr.io`  |               N/A                |
 
 ### Kubernetes Init Containers
 
@@ -72,17 +72,17 @@ spec:
         - mountPath: '/config'
           name: 'config-vol'
       env:
-        - name: 'kissit__example_integer'
+        - name: 'KISSIT__example_integer'
           value: 'int::123'
-        - name: 'kissit__example_string'
+        - name: 'KISSIT__example_string'
           value: 'string::123'
-        - name: 'kissit__example_boolean'
+        - name: 'KISSIT__example_boolean'
           value: 'bool::true'
-        - name: 'kissit__example__multilevel_string'
+        - name: 'KISSIT__example__multilevel_string'
           value: 'string::true'
-        - name: 'kissit__example__multilevel_list'
+        - name: 'KISSIT__example__multilevel_list'
           value: 'json::["abc","123"]'
-        - name: 'kissit__example__multilevel_object'
+        - name: 'KISSIT__example__multilevel_object'
           value: 'json::{"abc":123,"xyz":456,"boolean":true,"string":"value"}'
   volumes:
     - name: 'config-vol'
@@ -148,15 +148,15 @@ You can define explicit type conversions regardless of this setting using the sp
 
 |  Type  | Opportunistic |                    Example                    |     Output (YAML)     |
 |:------:|:-------------:|:---------------------------------------------:|:---------------------:|
-| string |      Yes      |        `kissit__EXAMPLE=string::123`        |        `'123'`        |
-| string |      No       |            `kissit__EXAMPLE=123`            |        `'123'`        |
-| string |      No       |             `kissit__EXAMPLE=1`             |         `'1'`         |
-| string |      No       |           `kissit__EXAMPLE=true`            |       `'true'`        |
-|  int   |      Yes      |         `kissit__EXAMPLE=int::123`          |         `123`         |
-|  int   |      Yes      |            `kissit__EXAMPLE=123`            |         `123`         |
-|  bool  |      Yes      |          `kissit__EXAMPLE=bool::1`          |        `true`         |
-|  bool  |      Yes      |        `kissit__EXAMPLE=bool::false`        |        `false`        |
-|  bool  |      Yes      |           `kissit__EXAMPLE=false`           |        `false`        |
-| float  |      Yes      |        `kissit__EXAMPLE=float::123`         |        `123.0`        |
-|  json  |      No       |        `kissit__EXAMPLE=json::[123]`        |       `[123.0]`       |
-|  json  |      No       | `kissit__EXAMPLE=json::["123","456","abc"]` | `['123','456','abc']` |
+| string |      Yes      |        `KISSIT__EXAMPLE=string::123`        |        `'123'`        |
+| string |      No       |            `KISSIT__EXAMPLE=123`            |        `'123'`        |
+| string |      No       |             `KISSIT__EXAMPLE=1`             |         `'1'`         |
+| string |      No       |           `KISSIT__EXAMPLE=true`            |       `'true'`        |
+|  int   |      Yes      |         `KISSIT__EXAMPLE=int::123`          |         `123`         |
+|  int   |      Yes      |            `KISSIT__EXAMPLE=123`            |         `123`         |
+|  bool  |      Yes      |          `KISSIT__EXAMPLE=bool::1`          |        `true`         |
+|  bool  |      Yes      |        `KISSIT__EXAMPLE=bool::false`        |        `false`        |
+|  bool  |      Yes      |           `KISSIT__EXAMPLE=false`           |        `false`        |
+| float  |      Yes      |        `KISSIT__EXAMPLE=float::123`         |        `123.0`        |
+|  json  |      No       |        `KISSIT__EXAMPLE=json::[123]`        |       `[123.0]`       |
+|  json  |      No       | `KISSIT__EXAMPLE=json::["123","456","abc"]` | `['123','456','abc']` |

@@ -18,7 +18,7 @@ func newRootCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use: "kissit <file>",
 
-		Short:   "Generate a configuration file from environment variables",
+		Short:   "Generate a configuration file from Keep It Simple Stupid Markup Language / KISSML (environment variables or random files you have laying around)",
 		Long:    rootLong,
 		Example: rootExample,
 		RunE:    root,
@@ -28,7 +28,7 @@ func newRootCommand() *cobra.Command {
 	}
 
 	cmd.Flags().StringP("format", "f", "", "override the output format; yaml, toml, json")
-	cmd.Flags().StringP("prefix", "p", "kissit", "override the environment prefix")
+	cmd.Flags().StringP("prefix", "p", "KISSIT", "override the environment prefix")
 	cmd.Flags().StringP("delimiter", "d", "__", "override the environment delimiter")
 	cmd.Flags().BoolP("overwrite", "x", false, "overwrite existing file")
 	cmd.Flags().StringSliceP("files", "z", nil, "uses the specified files as additional input, if any of these are the same file as the output assumes overwrite")

@@ -1,7 +1,7 @@
 package main
 
 const (
-	rootLong = `Generate a configuration file from environment variables.
+	rootLong = `Generate a configuration file from Keep It Simple Stupid Markup Language / KISSML (environment variables or random files you have laying around).
 
 Environment variables take the highest precedence overwriting any other input.
 

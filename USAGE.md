@@ -1,10 +1,10 @@
 ## kissit
 
-Generate a configuration file from environment variables
+Generate a configuration file from Keep It Simple Stupid Markup Language / KISSML (environment variables or random files you have laying around)
 
 ### Synopsis
 
-Generate a configuration file from environment variables.
+Generate a configuration file from Keep It Simple Stupid Markup Language / KISSML (environment variables or random files you have laying around).
 
 Environment variables take the highest precedence overwriting any other input.
 
