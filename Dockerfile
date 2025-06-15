@@ -15,7 +15,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 COPY LICENSE .
-COPY --from=builder-backend /go/inittmpl .
+COPY --from=builder-backend /go/ssit .
 ENV PATH="$PATH:/app"
 
-CMD ["inittmpl"]
+CMD ["ssit"]

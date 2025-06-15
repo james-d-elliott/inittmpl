@@ -1,4 +1,4 @@
-module github.com/james-d-elliott/inittmpl
+module github.com/james-d-elliott/ssit
 
 go 1.24
 

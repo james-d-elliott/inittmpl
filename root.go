@@ -11,12 +11,12 @@ import (
 	"github.com/knadh/koanf/v2"
 	"github.com/spf13/cobra"
 
-	"github.com/james-d-elliott/inittmpl/internal/parsers"
+	"github.com/james-d-elliott/ssit/internal/parsers"
 )
 
 func newRootCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "inittmpl <file>",
+		Use: "ssit <file>",
 
 		Short:   "Generate a configuration file from environment variables",
 		Long:    rootLong,
@@ -28,7 +28,7 @@ func newRootCommand() *cobra.Command {
 	}
 
 	cmd.Flags().StringP("format", "f", "", "override the output format; yaml, toml, json")
-	cmd.Flags().StringP("prefix", "p", "INITTMPL", "override the environment prefix")
+	cmd.Flags().StringP("prefix", "p", "ssit", "override the environment prefix")
 	cmd.Flags().StringP("delimiter", "d", "__", "override the environment delimiter")
 	cmd.Flags().BoolP("overwrite", "x", false, "overwrite existing file")
 	cmd.Flags().StringSliceP("files", "z", nil, "uses the specified files as additional input, if any of these are the same file as the output assumes overwrite")

@@ -1,4 +1,4 @@
-## inittmpl
+## ssit
 
 Generate a configuration file from environment variables
 
@@ -37,19 +37,19 @@ This allows easily defining multi-level datastructures without the need for
 complex decoding.
 
 ```
-inittmpl <file> [flags]
+ssit <file> [flags]
 ```
 
 ### Examples
 
 ```
-  inittmpl file.yaml
-  inittmpl file -f yaml
-  inittmpl file.toml
-  inittmpl file.json
-  inittmpl file.yaml -z input1.yaml,input2.toml,input3.json
-  inittmpl file.yaml -z file.yaml,input2.toml,input3.json
-  inittmpl file.yaml -x
+  ssit file.yaml
+  ssit file -f yaml
+  ssit file.toml
+  ssit file.json
+  ssit file.yaml -z input1.yaml,input2.toml,input3.json
+  ssit file.yaml -z file.yaml,input2.toml,input3.json
+  ssit file.yaml -x
 ```
 
 ### Options
@@ -60,8 +60,8 @@ inittmpl <file> [flags]
   -c, --disable-opportunistic   disable opportunistic type conversion of environment variables
   -z, --files strings           uses the specified files as additional input, if any of these are the same file as the output assumes overwrite
   -f, --format string           override the output format; yaml, toml, json
-  -h, --help                    help for inittmpl
+  -h, --help                    help for ssit
   -x, --overwrite               overwrite existing file
-  -p, --prefix string           override the environment prefix (default "INITTMPL")
+  -p, --prefix string           override the environment prefix (default "ssit")
 ```
 

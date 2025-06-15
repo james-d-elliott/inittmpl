@@ -5,8 +5,8 @@ import (
 	"github.com/knadh/koanf/parsers/toml"
 	"github.com/knadh/koanf/v2"
 
-	"github.com/james-d-elliott/inittmpl/internal/consts"
-	"github.com/james-d-elliott/inittmpl/internal/parsers/yaml"
+	"github.com/james-d-elliott/ssit/internal/consts"
+	"github.com/james-d-elliott/ssit/internal/parsers/yaml"
 )
 
 func Parser(format string) koanf.Parser {

@@ -1,6 +1,6 @@
-# inittmpl
+# ssit
 
-Stupid simple init templating tool.
+Stupid Simple Init Templating.
 
 ## Limitations
 
@@ -25,7 +25,7 @@ current way to define a list of any type.
 Like everything else with this tool, installing is stupid simple:
 
 ```shell
-go install github.com/james-d-elliott/inittmpl@2cb3e92997477c991323365c7ab007b2b3dc7daf
+go install github.com/james-d-elliott/ssit@2cb3e92997477c991323365c7ab007b2b3dc7daf
 ```
 
 ## Building
@@ -33,8 +33,8 @@ go install github.com/james-d-elliott/inittmpl@2cb3e92997477c991323365c7ab007b2b
 Like everything else with this tool, building is stupid simple:
 
 ```shell
-git clone https://github.com/james-d-elliott/inittmpl.git
-cd inittmpl
+git clone https://github.com/james-d-elliott/ssit.git
+cd ssit
 go mod download
 go build
 ```
@@ -46,7 +46,7 @@ environment variables for your desired output.
 
 | Repository  |               Image                |
 |:-----------:|:----------------------------------:|
-| `docker.io` | `docker.io/jamesdelliott/inittmpl` |
+| `docker.io` | `docker.io/jamesdelliott/ssit` |
 |  `ghcr.io`  |                N/A                 |
 
 ### Kubernetes Init Containers
@@ -65,24 +65,24 @@ spec:
         - mountPath: '/config'
           name: 'config-vol'
   initContainers:
-    - name: 'inittmpl'
-      image: 'jamesdelliott/inittmpl:latest'
+    - name: 'ssit'
+      image: 'jamesdelliott/ssit:latest'
       args: ['/config/config.yaml', '-xec']
       volumeMounts:
         - mountPath: '/config'
           name: 'config-vol'
       env:
-        - name: 'INITTMPL__example_integer'
+        - name: 'ssit__example_integer'
           value: 'int::123'
-        - name: 'INITTMPL__example_string'
+        - name: 'ssit__example_string'
           value: 'string::123'
-        - name: 'INITTMPL__example_boolean'
+        - name: 'ssit__example_boolean'
           value: 'bool::true'
-        - name: 'INITTMPL__example__multilevel_string'
+        - name: 'ssit__example__multilevel_string'
           value: 'string::true'
-        - name: 'INITTMPL__example__multilevel_list'
+        - name: 'ssit__example__multilevel_list'
           value: 'json::["abc","123"]'
-        - name: 'INITTMPL__example__multilevel_object'
+        - name: 'ssit__example__multilevel_object'
           value: 'json::{"abc":123,"xyz":456,"boolean":true,"string":"value"}'
   volumes:
     - name: 'config-vol'
@@ -148,15 +148,15 @@ You can define explicit type conversions regardless of this setting using the sp
 
 |  Type  | Opportunistic |                    Example                    |     Output (YAML)     |
 |:------:|:-------------:|:---------------------------------------------:|:---------------------:|
-| string |      Yes      |        `INITTMPL__EXAMPLE=string::123`        |        `'123'`        |
-| string |      No       |            `INITTMPL__EXAMPLE=123`            |        `'123'`        |
-| string |      No       |             `INITTMPL__EXAMPLE=1`             |         `'1'`         |
-| string |      No       |           `INITTMPL__EXAMPLE=true`            |       `'true'`        |
-|  int   |      Yes      |         `INITTMPL__EXAMPLE=int::123`          |         `123`         |
-|  int   |      Yes      |            `INITTMPL__EXAMPLE=123`            |         `123`         |
-|  bool  |      Yes      |          `INITTMPL__EXAMPLE=bool::1`          |        `true`         |
-|  bool  |      Yes      |        `INITTMPL__EXAMPLE=bool::false`        |        `false`        |
-|  bool  |      Yes      |           `INITTMPL__EXAMPLE=false`           |        `false`        |
-| float  |      Yes      |        `INITTMPL__EXAMPLE=float::123`         |        `123.0`        |
-|  json  |      No       |        `INITTMPL__EXAMPLE=json::[123]`        |       `[123.0]`       |
-|  json  |      No       | `INITTMPL__EXAMPLE=json::["123","456","abc"]` | `['123','456','abc']` |
+| string |      Yes      |        `ssit__EXAMPLE=string::123`        |        `'123'`        |
+| string |      No       |            `ssit__EXAMPLE=123`            |        `'123'`        |
+| string |      No       |             `ssit__EXAMPLE=1`             |         `'1'`         |
+| string |      No       |           `ssit__EXAMPLE=true`            |       `'true'`        |
+|  int   |      Yes      |         `ssit__EXAMPLE=int::123`          |         `123`         |
+|  int   |      Yes      |            `ssit__EXAMPLE=123`            |         `123`         |
+|  bool  |      Yes      |          `ssit__EXAMPLE=bool::1`          |        `true`         |
+|  bool  |      Yes      |        `ssit__EXAMPLE=bool::false`        |        `false`        |
+|  bool  |      Yes      |           `ssit__EXAMPLE=false`           |        `false`        |
+| float  |      Yes      |        `ssit__EXAMPLE=float::123`         |        `123.0`        |
+|  json  |      No       |        `ssit__EXAMPLE=json::[123]`        |       `[123.0]`       |
+|  json  |      No       | `ssit__EXAMPLE=json::["123","456","abc"]` | `['123','456','abc']` |
