@@ -18,11 +18,11 @@ func newRootCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use: "inittmpl <file>",
 
-		Short: "Generate a configuration file from environment variables",
-		Long:  rootLong,
-
-		RunE: root,
-		Args: cobra.ExactArgs(1),
+		Short:   "Generate a configuration file from environment variables",
+		Long:    rootLong,
+		Example: rootExample,
+		RunE:    root,
+		Args:    cobra.ExactArgs(1),
 
 		DisableAutoGenTag: true,
 	}

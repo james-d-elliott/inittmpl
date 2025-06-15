@@ -31,6 +31,13 @@ not to overwrite and use this solely for generating first time configs.
 
 Levels within the data structure are separated by default by a double underscore.
 This allows easily defining multi-level datastructures without the need for
-complex decoding.
-`
+complex decoding.`
+
+	rootExample = `  inittmpl file.yaml
+  inittmpl file -f yaml
+  inittmpl file.toml
+  inittmpl file.json
+  inittmpl file.yaml -z input1.yaml,input2.toml,input3.json
+  inittmpl file.yaml -z file.yaml,input2.toml,input3.json
+  inittmpl file.yaml -x`
 )
